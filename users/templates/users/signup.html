@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>Formularz rejestracji ajax</h1>
+{% endblock %}
+
+{% block javascript %}
+  <script>
+    $("#id_username").change(function () {
+      var username = $(this).val();
+      console.log(username);
+      var form = $(this).closest("form");
+      $.ajax({
+        // url: '/users/validate_username/',
+        url: form.attr("data-validate-username-url"),
+        data: form.serialize(),
+        // data: {
+        //   'username': username
+        // },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            // alert("Użytkownik o podanej nazwie już istnieje!");
+            alert(data.error_message);
+          }
+        }
+      });
+
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+  <form method="post" data-validate-username-url="{% url 'validate_username' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Rejestruj</button>
+  </form>
+{% endblock %}

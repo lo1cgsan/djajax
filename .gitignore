@@ -1,0 +1,19 @@
+*.o
+*.out
+*.exe
+*.lck
+.~*
+
+*.sqlite3
+
+__pycache__/
+*.py[cod]
+*.pyc
+venv
+pve
+pve3
+
+.DS_Store
+
+# katalog konfiguracyjny aplikacji jetbrains
+.idea
